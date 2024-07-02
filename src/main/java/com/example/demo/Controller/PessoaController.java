@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class PessoaController {
@@ -24,6 +27,16 @@ public class PessoaController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @GetMapping("/pessoa")
+    public String index(Model model){
+        
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+
+        model.addAttribute("pessoas", pessoas);
+        
+        return "pessoa/listar";
+    }
+    
     @GetMapping("/pessoa/create")
     public String create(Model model) {
         model.addAttribute("pessoaForm", new PessoaForm());
@@ -36,13 +49,13 @@ public class PessoaController {
         
         if(bindingResult.hasErrors()){
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "/pessoa/create";
+            return "pessoa/create";
         }
 
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Salvo com sucesso!");
         pessoaRepository.save(pessoaForm.toEntity());
         
-        return "redirect:/pessoa/create";
+        return "redirect:/pessoa";
     }
 
     @GetMapping("/pessoa/update/{id}")
@@ -54,14 +67,14 @@ public class PessoaController {
         model.addAttribute("pessoaForm", pessoaForm);
         model.addAttribute("id", pessoa.get().getId());
 
-        return "/pessoa/update";
+        return "pessoa/update";
     }
 
     @PostMapping("/pessoa/update/{id}")
     public String update(@PathVariable Long id, @Valid PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "/pessoa/update";
+            return "pessoa/update";
         }
 
         Pessoa pessoa = pessoaForm.toEntity();
