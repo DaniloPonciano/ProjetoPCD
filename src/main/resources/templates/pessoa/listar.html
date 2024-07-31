@@ -36,11 +36,16 @@
         </div>
     </div>
     
+    <script th:src="@{/js/traducao-datatables-ptbr.js}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#minha-tabela").DataTable();
+            $("#minha-tabela").DataTable({
+                language: datatable_pt_br
+            });
         });
     </script>
 </body>
 
 </html>
+
+<!-- "#" siginifica o ID e o "." significa a classe-->

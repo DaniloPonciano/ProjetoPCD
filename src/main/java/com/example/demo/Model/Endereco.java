@@ -3,7 +3,6 @@ package com.example.demo.Model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(
