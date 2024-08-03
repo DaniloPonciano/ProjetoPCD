@@ -5,7 +5,17 @@
     <div class="card mt-2">
         <div class="card-header d-flex justify-content-between">
             <h5 class="card-title"><i class="fa-solid fa-users"></i> Listagem de pessoas</h5>
-            <a class="btn btn-outline-success" href="/pessoa/create"><i class="fa-solid fa-circle-plus"></i> Add</a>
+            <div class="btn-group">
+                <a class="btn btn-outline-success" href="/pessoa/create"><i class="fa-solid fa-circle-plus"></i> Add</a>
+                <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Toggle</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/pessoa?display=false">Excluídos</a></li>
+                    <li><a class="dropdown-item" href="/pessoa">Ativos</a></li>
+                    
+                </ul>
+            </div>
         </div>
         <div class="card-body">
             <table id="minha-tabela" class="table table-bordered">
@@ -19,15 +29,17 @@
                 <tbody>
                     <tr th:each="pessoa : ${pessoas}">
                         <td th:text="${pessoa.id}"></td>
-                        <td th:text="${pessoa.nome}"></td>
+                        <td style="text-transform: capitalize" th:text="${pessoa.nome}"></td>
                         <td>
-                            <div class="brn-group">
-                                <a class="btn btn-light" th:href="@{/pessoa/update/{id}(id=${pessoa.id})}"><i
-                                        class="fa-regular fa-pen-to-square"></i> Update</a>
-                                <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i
-                                        class="fa-regular fa-trash-can"></i> Delete</a>
-                                <a class="btn btn-light" th:href="@{/pessoa/visualizar/{id}(id=${pessoa.id})}"><i
-                                        class="fa-solid fa-magnifying-glass"></i> To View</a>
+                            <div class="btn-group">
+                                <a class="btn btn-light" th:href="@{/pessoa/update/{id}(id=${pessoa.id})}"><i class="fa-regular fa-pen-to-square"></i> Update</a>
+                                <div th:if="${pessoa.ativo}">
+                                    <a class="btn btn-light" th:href="@{/pessoa/delete/{id}(id=${pessoa.id})}"><i class="fa-regular fa-trash-can"></i> Delete</a>    
+                                </div>
+                                <div th:if="${not pessoa.ativo}">
+                                    <a class="btn btn-light" th:href="@{/pessoa/delete/{id}(id=${pessoa.id})}"><i class="fa-solid fa-arrow-rotate-left"></i> Recovery</a>    
+                                </div>
+                                <a class="btn btn-light" th:href="@{/pessoa/visualizar/{id}(id=${pessoa.id})}"><i class="fa-solid fa-magnifying-glass"></i> To View</a>
                             </div>
                         </td>
                     </tr>

@@ -27,9 +27,6 @@ public class Endereco implements Serializable {
     )
     private int numero;
 
-    @ManyToOne
-    private Bairro bairro;
- ;
 
     public Endereco() {
     }

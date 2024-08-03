@@ -15,6 +15,18 @@
                             class="form-control">
                         <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                     </div>
+                    <div class="mb-3 col-md-3">
+                        <label for="data_nascimento" class="form-label">Data de Nascimento:</label>
+                        <input type="date" id="data_nascimento" placeholder="Ex.: DD/MM/AAAA" th:field="*{data_nascimento}"
+                            class="form-control">
+                        <div th:if="${errors != null && #fields.hasErrors('data_nascimento')}" th:errors="*{data_nascimento}"></div>
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <select>
+                            <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}" 
+                            th:value="${sexo.codigo}"th:text="${sexo.descricao}"></option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
