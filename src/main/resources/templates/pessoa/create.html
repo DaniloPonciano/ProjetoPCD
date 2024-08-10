@@ -21,16 +21,24 @@
                             class="form-control">
                         <div th:if="${errors != null && #fields.hasErrors('data_nascimento')}" th:errors="*{data_nascimento}"></div>
                     </div>
-                    <div class="mb-3 col-md-3">
-                        <select>
-                            <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}" 
+                    <div class=",b-3 col-md-3">
+                        <label for="sexo" class="form-label">Sexo:</label>
+                        <select id="sexo" class="form-select" th:field="*{sexo}">
+                            <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}"
                             th:value="${sexo.codigo}"th:text="${sexo.descricao}"></option>
+                        </select>
+                    </div>
+                    <div class=",b-3 col-md-3">
+                        <label for="deficiencia" class="form-label">Deficiência:</label>
+                        <select id="deficiencia" class="form-select" th:field="*{deficiencia}">
+                            <option th:each="deficiencia : *{(listDeficiencias)}" 
+                            th:value="${deficiencia.id}"th:text="${deficiencia.nome}"></option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
-                <a href="/pessoa" class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i> To back</a>
+                <a href="/pessoa" class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i>Back</a>
                 <button class="btn btn-outline-success" type="submit">Save</button>
             </div>
         </div>

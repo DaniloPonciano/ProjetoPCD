@@ -34,6 +34,10 @@ public class Pessoa {
     @Enumerated(EnumType.ORDINAL)
     private Sexo sexo = Sexo.NAO_INFORMADO;
 
+    @ManyToOne
+    @JoinColumn(name = "deficiencia_id")
+    private Deficiencia deficiencia;
+
     @Column(name = "ativo", nullable = false)
     @ColumnDefault("true")
     private boolean ativo = true;
