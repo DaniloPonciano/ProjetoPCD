@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,12 +15,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "bairro")
-public class Bairro {
-   
+@Table(name="estado")
+public class Estado {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,11 +29,10 @@ public class Bairro {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(name="ativo", nullable = false)
+    @Column(name = "sigla", nullable = false, length = 2)
+    private String sigla;
+
+    @Column(name = "ativo", nullable = false)
     @ColumnDefault("true")
-    private boolean ativo = true;
-    
-    @ManyToOne
-    @JoinColumn(name = "cidade_id")
-    private Cidade cidade;
+    private boolean ativo;
 }

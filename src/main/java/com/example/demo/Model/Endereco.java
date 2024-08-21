@@ -1,70 +1,40 @@
 package com.example.demo.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(
         name = "endereco"
 )
 public class Endereco implements Serializable {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(
-            nullable = false
-    )
+
+    @Column(name = "logradouro", nullable = false)
     private String logradouro;
-    @Column(
-            nullable = false
-    )
+
+    @Column(name = "cep", nullable = false, length = 9)
     private String cep;
-    @Column(
-            nullable = true
-    )
+
+    @Column(name = "numero", nullable = true)
     private int numero;
 
+    @Column(name = "complemento", nullable = true)
+    private String complemento;
 
-    public Endereco() {
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getLogradouro() {
-        return this.logradouro;
-    }
-
-    public String getCep() {
-        return this.cep;
-    }
-
-    public int getNumero() {
-        return this.numero;
-    }
-
-
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public void setLogradouro(final String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public void setCep(final String cep) {
-        this.cep = cep;
-    }
-
-    public void setNumero(final int numero) {
-        this.numero = numero;
-    }
-
-
+    @ManyToOne
+    @JoinColumn(name = "bairro_id")
+    private Bairro bairro;
 
 }

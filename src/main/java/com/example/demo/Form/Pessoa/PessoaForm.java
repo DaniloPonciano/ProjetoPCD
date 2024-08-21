@@ -36,21 +36,12 @@ public class PessoaForm {
     private Deficiencia deficiencia;
     private List<Deficiencia> listDeficiencias;
 
-    public Pessoa toEntity(){
-        Sexo sexo = Sexo.fromCodigo(this.sexo);
-        Pessoa pessoa = new Pessoa(nome, data_nascimento, sexo);
-        pessoa.setDeficiencia(deficiencia);
-        
-        return pessoa;
-    }
+    @NotBlank(message = "Preencha o campo CEP.")
+    @Size(min = 9, max = 9, message = "Preencha com um CEP válido")
+    private String cep;
 
     public PessoaForm(Pessoa pessoa){
         this.nome = pessoa.getNome();
-    }
-
-    public void setDeficiencias(DeficienciaRepository repository){
-        this.listDeficiencias = repository.findAll();
-    }
-    
+    } 
 
 }
